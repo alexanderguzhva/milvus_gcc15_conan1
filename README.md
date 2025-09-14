@@ -1,6 +1,6 @@
 # building Milvus with GCC-15 using conan 1
 
-**TLDR**: compile milvus with GCC-15 on Ubuntu 22.04, upgrade some packages (including `OpenSSL`), don't care about old compilers
+**TLDR**: compile milvus with GCC-15 on Ubuntu 22.04 on x86, upgrade some packages (including `OpenSSL`), don't care about old compilers
 
 Milvus commit: `9228ed7b8f2bc4a39c10f9a73cd605f5cd9414a6` (the most recent commit `b38013352dada7bb1c156ae66669f3e7f8274123` won't compile because of some missing references)
 
@@ -134,6 +134,14 @@ Basically, it injects missing `#include <cstdint>` headers to certain milvus fil
 ## Step 14. Compile milvus
 
 Use `step12/builder.sh` for compiling milvus
+
+## Step 15
+
+I was able to successfully compile milvus, including cardinal.
+
+ARM will likely require libunwind change to 1.8.0 or 1.8.1
+
+Clang may require different changes as well
 
 # More comments
 
