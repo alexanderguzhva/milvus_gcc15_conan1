@@ -2,6 +2,7 @@
 #conan download googleapis/cci.20230501@ -r conancenter -re
 
 conan download bzip2/1.0.8@ -r conancenter -re
+conan download libbacktrace/cci.20210118@ -r conancenter -re
 
 sudo apt install -y curl
 sudo apt install -y libopenblas-openmp-dev libaio-dev pkg-config
