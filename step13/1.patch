@@ -1,0 +1,36 @@
+diff --git a/internal/core/src/index/Meta.h b/internal/core/src/index/Meta.h
+index 4bddf992b2..e2376ddbf6 100644
+--- a/internal/core/src/index/Meta.h
++++ b/internal/core/src/index/Meta.h
+@@ -16,6 +16,7 @@
+ 
+ #pragma once
+ 
++#include <cstdint>
+ #include "knowhere/comp/index_param.h"
+ 
+ namespace milvus::index {
+diff --git a/internal/core/src/storage/ChunkManager.h b/internal/core/src/storage/ChunkManager.h
+index e671b668cd..92761e80e8 100644
+--- a/internal/core/src/storage/ChunkManager.h
++++ b/internal/core/src/storage/ChunkManager.h
+@@ -16,6 +16,7 @@
+ 
+ #pragma once
+ 
++#include <cstdint>
+ #include <iostream>
+ #include <memory>
+ #include <string>
+diff --git a/internal/core/src/storage/LocalChunkManager.h b/internal/core/src/storage/LocalChunkManager.h
+index f84ddd63a5..2ac276760b 100644
+--- a/internal/core/src/storage/LocalChunkManager.h
++++ b/internal/core/src/storage/LocalChunkManager.h
+@@ -16,6 +16,7 @@
+ 
+ #pragma once
+ 
++#include <cstdint>
+ #include <memory>
+ #include <string>
+ #include <vector>
