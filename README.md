@@ -60,7 +60,7 @@ This conan profile also introduces some additional C++ compilation flags for cer
 
 Check `06_setup_package_m4.sh`
 
-`M4` package's most recent version is `1.4.20`, but I cannot easily replace it in conan builds, because it is introduces as `tool_required`, even in Conan 2. The most practical way is to use `M4` version `1.4.20` and put it as `1.4.19`. 
+`M4` package's most recent version is `1.4.20`, but I cannot easily replace it in conan builds, because it is introduced as `tool_required`, even in Conan 2. The most practical way is to use `M4` version `1.4.20` and put it as `1.4.19`. 
 
 This script compiles `M4` version `1.4.20` and puts it into a local conan cache as `1.4.19`. You DO need to compile it.
 
@@ -74,7 +74,7 @@ Some third-party components from prereqs
 
 Check `07a_setup_package_openssl.sh`
 
-This scripts introduces a recipe for OpenSSL 3.5.2. It is expected that this script fails for conan. I'm not sure why but I cannot compile OpenSSL 3.5.2 (using uncommenting commented lines in the script). If you don't want such a hack, switch to OpenSSL 3.3.2 in `milvus/internal/core/conanfile.py`, which is the most recent available version in Conan 1 `conancenter` repo.
+This scripts introduces a recipe for OpenSSL 3.5.2 and puts into a local conan cache. It is **expected** that this script fails for conan. I'm not sure why but I cannot compile OpenSSL 3.5.2 (using uncommenting commented lines in the script). This hacky way will make conan to compile openssl during the milvus build. If you don't want such a hack, switch to OpenSSL 3.3.2 in `milvus/internal/core/conanfile.py`, which is the most recent available version in Conan 1 `conancenter` repo.
 
 ## Step 8. Setup Cyrus-Sasl package
 
@@ -82,9 +82,11 @@ Check `08_setup_package_cyrus_sasl.sh`
 
 Some old package used by `mongoc-driver`. I've used one of the recent commits from its github, which fixes the errors and the compilation. The commit diff is hardcoded in `conanfile.py`.
 
+This script puts the package into a local conan cache. It is **expected** that conan fails for this script. Uncomment the commented lines to compile the package (which is unneeded, it will be compiled during the milvus build).
+
 Also, its `conanfile.py` refers to an external file https://gist.github.com/alexanderguzhva/fbe0fc0f940e7d29d70f11c05f4f05e8/raw/3c13b80de6621ca2ce61251c83aca3e562f813fa/cyrus_sasl_ac0c278817a082c625c496ec812318c019e0b96f_with_configure.tar.gz . Basically, a github-provided source does not provide `./configure` file, but provides `./autogen.sh`. The archive mentioned above contains a generated `configure`, that's it.
 
-Also, `conanfile.py` compiles the code twice (yes, twice), bcz of some incorrect compilation order.
+Also, `conanfile.py` is expected to call the compilation the code twice (yes, twice), bcz of some incorrect compilation order.
 
 ## Step 9. Setup the newest zstd 1.5.7 package
 
@@ -92,11 +94,15 @@ Check `09_setup_package_zstd.sh`
 
 Installs the most recent `zstd` version `1.5.7` with perf improvements.
 
+This script puts the package into a local conan cache. It is **expected** that conan fails for this script. Uncomment the commented lines to compile the package (which is unneeded, it will be compiled during the milvus build).
+
 ## Step 10. Setup thrift package
 
 Check `10_setup_package_thrift.sh`
 
 Installs thrift 0.22.0. Mostly, an experiment from myself whether it is trivial to upgrade packages.
+
+This script puts the package into a local conan cache. It is **expected** that conan fails for this script. Uncomment the commented lines to compile the package (which is unneeded, it will be compiled during the milvus build).
 
 ## Step 11. Setup yaml-cpp package
 
@@ -104,16 +110,20 @@ Check `11_setup_package_yaml_cpp.sh`
 
 Same
 
+This script puts the package into a local conan cache. It is **expected** that conan fails for this script. Uncomment the commented lines to compile the package (which is unneeded, it will be compiled during the milvus build).
+
 ## Step 12. Install milvus and replace some files
 
 Check `12_download_milvus.sh`
 
-Downloads milvus and sets up a right commit
+Downloads milvus and sets up a right commit as a current one
 
-Also, please overwrite 
+Also, please overwrite
 
 * `milvus/scripts/3rdparty_build.sh` with `step12/3rdparty_build.sh`  
 * `milvus/internal/core/conanfile.py` with `step12/conanfile.py`
+
+Use `step12/builder.sh` for compiling milvus (step 14)
 
 ## Step 13. Apply patch to milvus
 
