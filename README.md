@@ -150,6 +150,12 @@ chmod +x llvm.sh
 sudo ./llvm.sh 21
 ```
 
+Then, install openmp for clang21
+
+```bash
+sudo apt install -y libomp-21-dev
+```
+
 Then, add the following line to the end of `step5/default` conan profile` in step 5: 
 
 `grpc:CXXFLAGS=-Wno-missing-template-arg-list-after-template-kw`
