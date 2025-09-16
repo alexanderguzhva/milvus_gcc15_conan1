@@ -129,7 +129,7 @@ Use `step12/builder.sh` for compiling milvus (step 14)
 
 ## Step 13. Apply patch to milvus
 
-Check `step13/1.patch`
+Check `step13/1.patch`, and apply using `git apply` command.
 
 Basically, it injects missing `#include <cstdint>` headers to certain milvus files.
 
@@ -138,6 +138,8 @@ Basically, it injects missing `#include <cstdint>` headers to certain milvus fil
 Use `step12/builder.sh` for compiling milvus
 
 ## Step 15. Clang
+
+Check `15_if_clang.sh` script.
 
 You may use the given process, but do the following extra steps:
 
@@ -156,11 +158,7 @@ Then, install openmp for clang21
 sudo apt install -y libomp-21-dev
 ```
 
-Then, add the following line to the end of `step5/default` conan profile` in step 5: 
-
-`grpc:CXXFLAGS=-Wno-missing-template-arg-list-after-template-kw`
-
-Basically, it is needed to silence a particular warning.
+Then, use `step15/default` as a conan profile and `step15/settings.yml` for conan settings instead of files from `05_setup_conan.sh`.
 
 Then, add the following symbolic links (or play with `update-alternatives` if you want a hard way)
 
@@ -169,7 +167,7 @@ sudo ln -s /usr/bin/clang++-21 /usr/bin/clang++
 sudo ln -s /usr/bin/clang-21 /usr/bin/clang
 ```
 
-(todo) apply some patches to `milvus` & `knowhere` code bases.
+Then, apply `step15/2.patch`, for example, using `git apply` command (this step is not in the script, do it manually).
 
 ## The result
 
