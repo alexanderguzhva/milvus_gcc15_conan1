@@ -1,6 +1,8 @@
-# building Milvus with GCC-15 using conan 1
+# building Milvus with GCC-15 / Clang-21 using conan 1
 
 **TLDR**: compile milvus with GCC-15 on Ubuntu 22.04 on x86, upgrade some packages (including `OpenSSL`), don't care about old compilers
+
+See the bottom of the document for minor clang-related changes (see `Step 15` section down there) before starting.
 
 Milvus commit: `9228ed7b8f2bc4a39c10f9a73cd605f5cd9414a6` (the most recent commit `b38013352dada7bb1c156ae66669f3e7f8274123` won't compile because of some missing references)
 
@@ -135,13 +137,37 @@ Basically, it injects missing `#include <cstdint>` headers to certain milvus fil
 
 Use `step12/builder.sh` for compiling milvus
 
-## Step 15
+## Step 15. Clang
+
+You may use the given process, but do the following extra steps:
+
+First, install `clang` version `21` instead of `GCC` on `step 1`. Follow the instruction on https://apt.llvm.org/
+
+```bash
+cd /tmp
+wget https://apt.llvm.org/llvm.sh
+chmod +x llvm.sh
+sudo ./llvm.sh 21
+```
+
+Then, add the following line to the end of `step5/default` conan profile` in step 5: 
+
+`grpc:CXXFLAGS=-Wno-missing-template-arg-list-after-template-kw`
+
+Basically, it is needed to silence a particular warning.
+
+Then, add the following symbolic links (or play with `update-alternatives` if you want a hard way)
+
+```bash
+sudo ln -s /usr/bin/clang++-21 /usr/bin/clang++
+sudo ln -s /usr/bin/clang-21 /usr/bin/clang
+```
+
+## The result
 
 I was able to successfully compile milvus, including cardinal.
 
 ARM will likely require libunwind change to 1.8.0 or 1.8.1
-
-Clang may require different changes as well
 
 # More comments
 
