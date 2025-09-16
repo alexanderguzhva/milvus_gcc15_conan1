@@ -169,6 +169,8 @@ sudo ln -s /usr/bin/clang++-21 /usr/bin/clang++
 sudo ln -s /usr/bin/clang-21 /usr/bin/clang
 ```
 
+(todo) apply some patches to `milvus` & `knowhere` code bases.
+
 ## The result
 
 I was able to successfully compile milvus, including cardinal.
